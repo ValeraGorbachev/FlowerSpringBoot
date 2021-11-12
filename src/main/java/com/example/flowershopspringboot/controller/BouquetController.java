@@ -40,6 +40,7 @@ public class BouquetController {
     @PostMapping(value = "/bouquetsUpdate")
     public ResponseEntity<Bouquet> update(@RequestBody BouquetDto bouquet) {
         Bouquet bouquet1= new Bouquet();
+        bouquet1.setBouquetId(bouquet.getBouquetId());
         bouquet1.setBouquetPrice(bouquet.getBouquetPrice());
         bouquet1.setBouquetName(bouquet.getBouquetName());
         bouquetRepository.saveAndFlush(bouquet1);
@@ -58,8 +59,12 @@ public class BouquetController {
 
 
     @DeleteMapping(value = "/deleteBouquet")
-    public ResponseEntity<?> delete(@RequestBody Bouquet bouquet) {
-        bouquetRepository.delete(bouquet);
+    public ResponseEntity<?> delete(@RequestBody BouquetDto bouquet) {
+        Bouquet bouquet1= new Bouquet();
+        bouquet1.setBouquetId(bouquet.getBouquetId());
+        bouquet1.setBouquetPrice(bouquet.getBouquetPrice());
+        bouquet1.setBouquetName(bouquet.getBouquetName());
+        bouquetRepository.delete(bouquet1);
         final List<Bouquet> bouquetList = bouquetRepository.findAll();
 
         return bouquetList != null && !bouquetList.isEmpty()
