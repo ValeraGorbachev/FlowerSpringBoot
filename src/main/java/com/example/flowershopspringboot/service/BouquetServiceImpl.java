@@ -1,40 +1,58 @@
 package com.example.flowershopspringboot.service;
 
 import com.example.flowershopspringboot.entity.Bouquet;
+import com.example.flowershopspringboot.repository.BouquetRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.expression.ExpressionException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
-public class BouquetServiceImpl implements BouquetService{
+public class BouquetServiceImpl implements BouquetService {
 
-    private static final Map<Integer, Bouquet> BOUQUET_REPOSITORY_MAP = new HashMap<>();
+    private final BouquetRepository bouquetRepository;
+
+
+    public BouquetServiceImpl(BouquetRepository bouquetRepository) {
+        this.bouquetRepository = bouquetRepository;
+    }
+
     @Override
     public void create(Bouquet bouquet) {
-        BOUQUET_REPOSITORY_MAP.put(bouquet.getBouquetId(), bouquet);
+        bouquetRepository.save(bouquet);
     }
 
     @Override
     public List<Bouquet> readAll() {
-        return new ArrayList<>(BOUQUET_REPOSITORY_MAP.values());
+        List<Bouquet> bouquetList = bouquetRepository.findAll();
+        return bouquetList;
     }
 
     @Override
-
     public boolean update(Bouquet bouquet, int id) {
-        if(BOUQUET_REPOSITORY_MAP.containsKey(id)){
-            bouquet.setBouquetId(id);
-            BOUQUET_REPOSITORY_MAP.put(bouquet.getBouquetId(), bouquet);
-        return true;
-        }
         return false;
     }
 
     @Override
-    public boolean delete(int id) {
-        return BOUQUET_REPOSITORY_MAP.remove(id) !=null;
+    public boolean delete(Bouquet bouquet) {
+        bouquet.setBouquetId(bouquet.getBouquetId());
+        bouquet.setBouquetPrice(bouquet.getBouquetPrice());
+        bouquet.setBouquetName(bouquet.getBouquetName());
+        bouquetRepository.delete(bouquet);
+       return true;
     }
+
+//    public Bouquet getBouquetById(Integer id) {
+//        Bouquet bouquet = new Bouquet();
+//        bouquetRepository.findById(bouquet.getBouquetId());
+//        return bouquet;
+//    }
+
+    public Bouquet findBouquetById(Integer id) {
+        return bouquetRepository.findById(id)
+
+                .orElseThrow(() -> new ExpressionException("error"));
+    }
+
 }

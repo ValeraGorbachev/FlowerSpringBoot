@@ -1,12 +1,16 @@
 package com.example.flowershopspringboot.service;
 
+import com.example.flowershopspringboot.entity.Bouquet;
 import com.example.flowershopspringboot.entity.RoleEntity;
 import com.example.flowershopspringboot.entity.UserEntity;
 import com.example.flowershopspringboot.repository.RoleEntityRepository;
 import com.example.flowershopspringboot.repository.UserEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.expression.ExpressionException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
@@ -37,5 +41,20 @@ public class UserService {
             }
         }
         return null;
+    }
+
+    public UserEntity findUserById(Integer id) {
+        return userEntityRepository.findById(id)
+
+                .orElseThrow(() -> new ExpressionException("error"));
+    }
+
+    public void create(UserEntity user) {
+        userEntityRepository.save(user);
+    }
+
+    public List<UserEntity> readAll() {
+        List<UserEntity> userList = userEntityRepository.findAll();
+        return userList;
     }
 }

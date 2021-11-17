@@ -17,7 +17,7 @@ public interface BouquetService {
 
     boolean update(Bouquet bouquet, int id);
 
-    boolean delete(int id);
+    boolean delete(Bouquet bouquet);
 
 
 }

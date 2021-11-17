@@ -3,6 +3,7 @@ package com.example.flowershopspringboot.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.hateoas.RepresentationModel;
 
 
 import javax.persistence.*;
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @Table(name = "bouquet")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Bouquet {
+public class Bouquet extends RepresentationModel<Bouquet> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "bouquet_Id")
