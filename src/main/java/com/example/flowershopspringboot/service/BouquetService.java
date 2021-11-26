@@ -15,7 +15,7 @@ public interface BouquetService {
 
     List<Bouquet> readAll();
 
-    boolean update(Bouquet bouquet, int id);
+
 
     boolean delete(Bouquet bouquet);
 

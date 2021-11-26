@@ -1,9 +1,8 @@
 package com.example.flowershopspringboot.controller;
 
 
-import com.example.flowershopspringboot.dto.BouquetDto;
+
 import com.example.flowershopspringboot.dto.ItemDto;
-import com.example.flowershopspringboot.entity.Bouquet;
 import com.example.flowershopspringboot.entity.Item;
 import com.example.flowershopspringboot.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;

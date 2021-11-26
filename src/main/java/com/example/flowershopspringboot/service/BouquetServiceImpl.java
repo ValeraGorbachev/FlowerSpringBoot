@@ -29,9 +29,17 @@ public class BouquetServiceImpl implements BouquetService {
         return bouquetList;
     }
 
-    @Override
-    public boolean update(Bouquet bouquet, int id) {
-        return false;
+
+    public Bouquet updateBouquet(Integer bouquetId, Bouquet bouquetRequest) {
+        Bouquet bouquet = bouquetRepository.findById(bouquetId).orElseThrow(() -> new ExpressionException("error"));
+        bouquetRequest.setBouquetId(bouquet.getBouquetId());
+        if(bouquetRequest.getBouquetName() != null) {
+            bouquet.setBouquetName(bouquetRequest.getBouquetName());
+        }
+        if (bouquetRequest.getBouquetPrice() != null) {
+            bouquet.setBouquetPrice(bouquetRequest.getBouquetPrice());
+        }
+        return bouquetRepository.save(bouquet);
     }
 
     @Override

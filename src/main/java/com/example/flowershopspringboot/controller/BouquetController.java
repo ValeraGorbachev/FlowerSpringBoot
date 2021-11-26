@@ -18,23 +18,11 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import static org.springframework.http.ResponseEntity.ok;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/bouquet")
 public class BouquetController {
-//
-//    private final BouquetService bouquetService;
-//
-//    @Autowired
-//    public BouquetController(BouquetService bouquetService) {
-//        this.bouquetService = bouquetService;
-//    }
-////
-//    private final BouquetRepository bouquetRepository;
-//
-//    @Autowired
-//    public BouquetController(BouquetRepository bouquetRepository) {
-//        this.bouquetRepository = bouquetRepository;
-//    }
+
 
     @Autowired
    private final ModelMapper modelMapper;
@@ -54,8 +42,8 @@ public class BouquetController {
 //        return new ResponseEntity<>(HttpStatus.CREATED);
 //    }
 
-    @PostMapping(value = "/bouquetsUpdate")
-    public ResponseEntity<CollectionModel<Bouquet>> update(@RequestBody BouquetDto bouquet) {
+    @PostMapping(value = "/bouquets")
+    public ResponseEntity<CollectionModel<Bouquet>> createBouquet(@RequestBody BouquetDto bouquet) {
         Bouquet bouquet1 = new Bouquet();
         bouquet1.setBouquetId(bouquet.getBouquetId());
         bouquet1.setBouquetPrice(bouquet.getBouquetPrice());
@@ -68,28 +56,34 @@ public class BouquetController {
 
     }
 
-    @GetMapping(value = "/bouquetList")
-    public ResponseEntity<CollectionModel<Bouquet>> getAllBouquets() {
-        List<Bouquet> bouquetList = bouquetServiceImpl.readAll();
-        bouquetList.forEach(bouquet -> {
-            bouquet.add(linkTo(methodOn(BouquetController.class).getBouquetById(bouquet.getBouquetId())).withSelfRel());
-        });
-        Link allDirectorsLink = linkTo(methodOn(BouquetController.class).getAllBouquets()).withSelfRel();
-        return ok(CollectionModel.of(bouquetList, allDirectorsLink));
+    @GetMapping(value = "/bouquets")
+    public List<Bouquet> getAllBouquets(){
+        return bouquetServiceImpl.readAll();
+    }
+
+    @PutMapping("/bouquets/{id}")
+    public ResponseEntity<EntityModel<BouquetDto>> updateBouquet(@PathVariable(name = "id") Integer bouquetId, @RequestBody BouquetDto bouquetDto) {
+        Bouquet bouquetRequest = modelMapper.map(bouquetDto, Bouquet.class);
+        Bouquet bouquet = bouquetServiceImpl.updateBouquet(bouquetId, bouquetRequest);
+        BouquetDto bouquetResponse = modelMapper.map(bouquet, BouquetDto.class);
+        return new ResponseEntity<>(EntityModel.of(bouquetResponse,
+                linkTo(methodOn(UserController.class).getUserById(bouquet.getBouquetId())).withSelfRel()), HttpStatus.OK);
     }
 
 
+
 //    @GetMapping(value = "/bouquetList")
-//    public ResponseEntity<List<Bouquet>> read() {
-//        final List<Bouquet> bouquetList = bouquetRepository.findAll();
-//
-//        return bouquetList != null && !bouquetList.isEmpty()
-//                ? new ResponseEntity<>(bouquetList, HttpStatus.OK)
-//                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//    public ResponseEntity<CollectionModel<Bouquet>> getAllBouquets() {
+//        List<Bouquet> bouquetList = bouquetServiceImpl.readAll();
+//        bouquetList.forEach(bouquet -> {
+//            bouquet.add(linkTo(methodOn(BouquetController.class).getBouquetById(bouquet.getBouquetId())).withSelfRel());
+//        });
+//        Link allDirectorsLink = linkTo(methodOn(BouquetController.class).getAllBouquets()).withSelfRel();
+//        return ok(CollectionModel.of(bouquetList, allDirectorsLink));
 //    }
 
 
-    @GetMapping("/{id}")
+    @GetMapping("/bouquets/{id}")
     public ResponseEntity<EntityModel<BouquetDto>> getBouquetById(@PathVariable(name = "id") Integer id) {
         Bouquet bouquet = bouquetServiceImpl.findBouquetById(id);
         BouquetDto bouquetResponse = modelMapper.map(bouquet, BouquetDto.class);
@@ -98,15 +92,9 @@ public class BouquetController {
     }
 
 
-//
-//    public Bouquet getBouquetById(Integer id){
-//        Bouquet bouquet1= new Bouquet();
-//        bouquetServiceImpl.getBouquetById(id);
-//        return bouquet1;
-//    }}
 
 
-    @DeleteMapping(value = "/deleteBouquet")
+    @DeleteMapping(value = "/bouquets/{id}")
     public ResponseEntity<?> delete(@RequestBody BouquetDto bouquet) {
         Bouquet bouquet1= new Bouquet();
         bouquet1.setBouquetId(bouquet.getBouquetId());
