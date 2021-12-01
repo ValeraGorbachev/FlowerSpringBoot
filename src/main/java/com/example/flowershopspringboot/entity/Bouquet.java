@@ -3,10 +3,14 @@ package com.example.flowershopspringboot.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import org.hibernate.annotations.Type;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.hateoas.RepresentationModel;
 
-
 import javax.persistence.*;
+
+
 
 @Data
 @Entity
@@ -23,5 +27,14 @@ public class Bouquet extends RepresentationModel<Bouquet> {
     @Column(name = "bouquet_Price")
     private Integer bouquetPrice;
 
+
+
+
+
+    public Bouquet(String bouquetName, Integer bouquetPrice) {
+        this.bouquetName = bouquetName;
+        this.bouquetPrice = bouquetPrice;
+
+    }
 }
 

@@ -5,9 +5,12 @@ import com.example.flowershopspringboot.entity.Bouquet;
 import com.example.flowershopspringboot.service.BouquetServiceImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -56,10 +59,39 @@ public class BouquetController {
 
     }
 
+//    @GetMapping(value = "/bouquets")
+//    Page blogPageable (Pageable pageable){
+//        return bouquetServiceImpl.readAll(pageable);
+//    }
+
+
     @GetMapping(value = "/bouquets")
-    public List<Bouquet> getAllBouquets(){
-        return bouquetServiceImpl.readAll();
+    public ResponseEntity<List<Bouquet>> getAllBouquets(
+            @RequestParam(defaultValue = "0") Integer pageNo,
+            @RequestParam(defaultValue = "10") Integer pageSize,
+            @RequestParam(defaultValue = "bouquetName") String sortBy)
+    {
+        List<Bouquet> list = bouquetServiceImpl.getAllBouquets(pageNo, pageSize, sortBy);
+
+        return new ResponseEntity<List<Bouquet>>(list, new HttpHeaders(), HttpStatus.OK);
     }
+
+
+    @GetMapping(value = "/bouquet")
+    public ResponseEntity<CollectionModel<Bouquet>> getAllBouquet(
+            @RequestParam(defaultValue = "0") Integer pageNo,
+            @RequestParam(defaultValue = "10") Integer pageSize,
+            @RequestParam(defaultValue = "bouquetPrice") String sortBy) {
+        List<Bouquet> bouquetList = bouquetServiceImpl.getAllBouquets(pageNo, pageSize, sortBy);
+
+        bouquetList.forEach(bouquet -> {
+            bouquet.add(linkTo(methodOn(BouquetController.class).getBouquetById(bouquet.getBouquetId())).withSelfRel());
+        });
+        Link allDirectorsLink = linkTo(methodOn(BouquetController.class).getAllBouquet(0,4,"bouquetName")).withSelfRel();
+        return ok(CollectionModel.of(bouquetList, allDirectorsLink));
+    }
+
+
 
     @PutMapping("/bouquets/{id}")
     public ResponseEntity<EntityModel<BouquetDto>> updateBouquet(@PathVariable(name = "id") Integer bouquetId, @RequestBody BouquetDto bouquetDto) {
@@ -94,19 +126,27 @@ public class BouquetController {
 
 
 
-    @DeleteMapping(value = "/bouquets/{id}")
-    public ResponseEntity<?> delete(@RequestBody BouquetDto bouquet) {
-        Bouquet bouquet1= new Bouquet();
-        bouquet1.setBouquetId(bouquet.getBouquetId());
-        bouquet1.setBouquetPrice(bouquet.getBouquetPrice());
-        bouquet1.setBouquetName(bouquet.getBouquetName());
-       bouquetServiceImpl.delete(bouquet1);
-        final List<Bouquet> bouquetList = bouquetServiceImpl.readAll();
 
-        return bouquetList != null && !bouquetList.isEmpty()
-                ? new ResponseEntity<>(bouquetList, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//    @DeleteMapping(value = "/bouquets/{id}")
+//    public ResponseEntity<?> delete(@RequestBody BouquetDto bouquet) {
+//        Bouquet bouquet1= new Bouquet();
+//        bouquet1.setBouquetId(bouquet.getBouquetId());
+//        bouquet1.setBouquetPrice(bouquet.getBouquetPrice());
+//        bouquet1.setBouquetName(bouquet.getBouquetName());
+//        bouquetServiceImpl.delete(bouquet1);
+//        final List<Bouquet> bouquetList = bouquetServiceImpl.readAll();
+//
+//        return bouquetList != null && !bouquetList.isEmpty()
+//                ? new ResponseEntity<>(bouquetList, HttpStatus.OK)
+//                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//    }
+
+    @DeleteMapping("/bouquets/{id}")
+    public ResponseEntity<?> deleteBouquet(@PathVariable(name = "id") Integer id) {
+        bouquetServiceImpl.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }
 
 

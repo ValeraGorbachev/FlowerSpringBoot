@@ -13,11 +13,12 @@ public interface BouquetService {
     void create(Bouquet bouquet);
 
 
-    List<Bouquet> readAll();
+//    List<Bouquet> readAll();
 
+    Bouquet updateBouquet(Integer id, Bouquet bouquet);
 
+    void delete(Integer id);
 
-    boolean delete(Bouquet bouquet);
-
+    Bouquet findBouquetById(Integer id);
 
 }
