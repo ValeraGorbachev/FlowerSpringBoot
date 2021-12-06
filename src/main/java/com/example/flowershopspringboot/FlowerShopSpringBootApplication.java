@@ -9,8 +9,5 @@ public class FlowerShopSpringBootApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(FlowerShopSpringBootApplication.class, args);
-
-
     }
-
 }

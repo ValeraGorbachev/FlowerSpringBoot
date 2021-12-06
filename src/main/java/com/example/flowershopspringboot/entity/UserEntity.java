@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Table(name = "user_table")
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserEntity  extends RepresentationModel<UserEntity> {
+public class UserEntity extends RepresentationModel<UserEntity> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

@@ -1,6 +1,6 @@
-package com.example.flowershopspringboot.controller;
+package com.example.flowershopspringboot.security.securityController;
 
-import com.example.flowershopspringboot.config.jwt.JwtProvider;
+import com.example.flowershopspringboot.security.jwt.JwtProvider;
 import com.example.flowershopspringboot.entity.UserEntity;
 import com.example.flowershopspringboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

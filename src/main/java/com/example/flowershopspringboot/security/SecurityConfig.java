@@ -1,6 +1,6 @@
-package com.example.flowershopspringboot.config;
+package com.example.flowershopspringboot.security;
 
-import com.example.flowershopspringboot.config.jwt.JwtFilter;
+import com.example.flowershopspringboot.security.jwt.JwtFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

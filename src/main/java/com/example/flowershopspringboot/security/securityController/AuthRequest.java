@@ -1,4 +1,4 @@
-package com.example.flowershopspringboot.controller;
+package com.example.flowershopspringboot.security.securityController;
 
 import lombok.Data;
 

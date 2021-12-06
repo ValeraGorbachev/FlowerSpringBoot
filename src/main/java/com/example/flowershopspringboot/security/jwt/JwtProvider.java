@@ -1,4 +1,4 @@
-package com.example.flowershopspringboot.config.jwt;
+package com.example.flowershopspringboot.security.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

@@ -1,6 +1,5 @@
 package com.example.flowershopspringboot.service;
 
-import com.example.flowershopspringboot.entity.Bouquet;
 import com.example.flowershopspringboot.entity.RoleEntity;
 import com.example.flowershopspringboot.entity.UserEntity;
 import com.example.flowershopspringboot.repository.RoleEntityRepository;

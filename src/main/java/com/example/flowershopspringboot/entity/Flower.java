@@ -21,6 +21,6 @@ public class Flower {
     private String flowerName;
     @Column(name = "flower_price")
     private Integer flowerPrice;
-    @Column(name="flower_count")
+    @Column(name = "flower_count")
     private Integer flowerCount;
 }

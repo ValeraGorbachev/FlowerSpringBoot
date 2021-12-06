@@ -1,7 +1,7 @@
-package com.example.flowershopspringboot.config.jwt;
+package com.example.flowershopspringboot.security.jwt;
 
-import com.example.flowershopspringboot.config.CustomUserDetails;
-import com.example.flowershopspringboot.config.CustomUserDetailsService;
+import com.example.flowershopspringboot.security.CustomUserDetails;
+import com.example.flowershopspringboot.security.CustomUserDetailsService;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -24,10 +24,8 @@ import static org.springframework.http.ResponseEntity.ok;
 @RequestMapping("/user")
 public class UserController {
 
-
     @Autowired
     private final ModelMapper modelMapper;
-
 
     private final UserService userService;
 
@@ -36,7 +34,6 @@ public class UserController {
         this.modelMapper = modelMapper;
         this.userService = userService;
     }
-
 
     @PostMapping(value = "/userCreate")
     public ResponseEntity<CollectionModel<UserEntity>> update(@RequestBody UserDto userDto) {
@@ -50,7 +47,6 @@ public class UserController {
                 linkTo(methodOn(UserController.class).getUserById(user.getId())).withSelfRel()),
                 HttpStatus.CREATED);
     }
-
 
     @GetMapping(value = "/userList")
     public ResponseEntity<CollectionModel<UserEntity>> getAllUsers() {

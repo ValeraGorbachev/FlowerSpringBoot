@@ -1,19 +1,14 @@
 package com.example.flowershopspringboot.service;
 
-import com.example.flowershopspringboot.entity.Bouquet;
-import com.example.flowershopspringboot.repository.BouquetRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
+import com.example.flowershopspringboot.entity.bouquet.Bouquet;
+import com.example.flowershopspringboot.entity.bouquet.BouquetPage;
+import com.example.flowershopspringboot.entity.bouquet.BouquetSearchCriteria;
+import org.springframework.data.domain.Page;
 
 public interface BouquetService {
 
 
     void create(Bouquet bouquet);
-
-
-//    List<Bouquet> readAll();
 
     Bouquet updateBouquet(Integer id, Bouquet bouquet);
 

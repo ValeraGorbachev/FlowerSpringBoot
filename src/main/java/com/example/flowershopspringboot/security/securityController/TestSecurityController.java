@@ -1,4 +1,4 @@
-package com.example.flowershopspringboot.controller;
+package com.example.flowershopspringboot.security.securityController;
 
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,5 +15,4 @@ public class TestSecurityController {
     public String getUser() {
         return "Hi user";
     }
-
 }

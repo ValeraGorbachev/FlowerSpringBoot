@@ -1,4 +1,4 @@
-package com.example.flowershopspringboot.config;
+package com.example.flowershopspringboot.security;
 
 import com.example.flowershopspringboot.entity.UserEntity;
 import org.springframework.security.core.userdetails.UserDetails;
