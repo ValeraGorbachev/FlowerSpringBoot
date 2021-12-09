@@ -15,21 +15,17 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
-
-import org.springframework.hateoas.Link;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-
-
 import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
-import static org.springframework.http.ResponseEntity.ok;
+
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -47,15 +43,9 @@ public class BouquetController {
         this.modelMapper = modelMapper;
         this.bouquetServiceImpl = bouquetServiceImpl;
     }
-//
-//    @PostMapping()
-//    public ResponseEntity<Bouquet> save(@RequestBody @Valid Bouquet bouquet) {
-//        bouquetServiceImpl.create(bouquet);
-//        return new ResponseEntity<>(HttpStatus.CREATED);
-//    }
 
     @PostMapping()
-    public ResponseEntity<CollectionModel<Bouquet>> createBouquet(@Valid @RequestBody  BouquetDto bouquet) {
+    public ResponseEntity<CollectionModel<Bouquet>> createBouquet(@Valid @RequestBody BouquetDto bouquet) {
         logger.info("Create Bouquets");
         Bouquet bouquet1 = new Bouquet();
         bouquet1.setBouquetId(bouquet.getBouquetId());
@@ -72,36 +62,13 @@ public class BouquetController {
             BouquetPage bouquetPage,
             @RequestBody BouquetSearchCriteria bouquetSearchCriteria) {
         logger.info("Show Bouquets");
-        Page<Bouquet> list =  bouquetServiceImpl.getAllBouquets(bouquetPage,bouquetSearchCriteria);
+        Page<Bouquet> list = bouquetServiceImpl.getAllBouquets(bouquetPage, bouquetSearchCriteria);
         list.forEach(bouquet -> {
             bouquet.add(linkTo(methodOn(BouquetController.class).getBouquetById(bouquet.getBouquetId())).withSelfRel());
         });
-        Link allDirectorsLink = linkTo(methodOn(BouquetController.class).getAllBouquets(bouquetPage,bouquetSearchCriteria)).withSelfRel();
-        return new ResponseEntity<Page<Bouquet>>(list,  new HttpHeaders(),
+        return new ResponseEntity<Page<Bouquet>>(list, new HttpHeaders(),
                 HttpStatus.OK);
     }
-    @GetMapping("/bouquets")
-    public ResponseEntity<List<Bouquet>> getAllBouquets(
-            @PageableDefault(sort = {"bouquetName"}, direction = Sort.Direction.ASC) Pageable defaultPageable) {
-        logger.info("Show Bouquets");
-        List<Bouquet> list = (List<Bouquet>) bouquetServiceImpl.getAllBouquets(defaultPageable);
-        return new ResponseEntity<List<Bouquet>>(list, new HttpHeaders(), HttpStatus.OK);
-    }
-
-
-//    @GetMapping("/bouquets")
-//    public ResponseEntity<CollectionModel<Bouquet>> getAllBouquets(
-//            BouquetPage bouquetPage,
-//            @RequestBody BouquetSearchCriteria bouquetSearchCriteria) {
-//        logger.info("Show Bouquets");
-//        Page<Bouquet> list =  bouquetServiceImpl.getAllBouquets(bouquetPage,bouquetSearchCriteria);
-//        list.forEach(bouquet -> {
-//            bouquet.add(linkTo(methodOn(BouquetController.class).getBouquetById(bouquet.getBouquetId())).withSelfRel());
-//        });
-//        Link allDirectorsLink = linkTo(methodOn(BouquetController.class).getAllBouquets(bouquetPage,bouquetSearchCriteria)).withSelfRel();
-//        return ok(CollectionModel.of(list, allDirectorsLink));
-//    }
-
 
     @PutMapping("/{id}")
     public ResponseEntity<EntityModel<BouquetDto>> updateBouquet(@PathVariable(name = "id") Integer bouquetId, @RequestBody BouquetDto bouquetDto) {
@@ -128,7 +95,6 @@ public class BouquetController {
         bouquetServiceImpl.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }
 
 

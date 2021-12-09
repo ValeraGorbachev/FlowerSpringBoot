@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.hateoas.RepresentationModel;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 
@@ -25,6 +27,8 @@ public class Bouquet extends RepresentationModel<Bouquet> {
     @Column(name = "bouquet_Name")
     private String bouquetName;
     @Column(name = "bouquet_Price")
+    @Min(value = 10, message = "Price should not be less than 10")
+    @Max(value = 100000, message = "Price should not be greater than 100000")
     private Integer bouquetPrice;
 
     public Bouquet(String bouquetName, Integer bouquetPrice) {

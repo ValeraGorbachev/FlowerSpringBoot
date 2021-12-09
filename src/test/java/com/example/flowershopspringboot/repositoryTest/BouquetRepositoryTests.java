@@ -27,28 +27,30 @@ public class BouquetRepositoryTests {
         Bouquet saveBouquet = bouquetRepository.save(new Bouquet("Roses", 789));
 
         assertThat(saveBouquet.getBouquetId()).isGreaterThan(0);
-    }
+    }}
 
-    @Test
-    @Rollback(false)
-    @Order(3)
-    public void testUpdateBouquet() {
-        Bouquet bouquet = bouquetRepository.findById(35)
-                .orElseThrow(() -> new ExpressionException("error"));
-        bouquet.setBouquetName("Alisa");
-
-        bouquetRepository.save(bouquet);
-
-        Bouquet updatedBouquet = bouquetRepository.findById(35)
-                .orElseThrow(() -> new ExpressionException("error"));
-
-        assertThat(updatedBouquet.getBouquetName()).isEqualTo("Alisa");
-    }
-    @Test
-    @Order(4)
-    public void testFindProductById() {
-        Bouquet bouquet = bouquetRepository.findById(35)
-                .orElseThrow(() -> new ExpressionException("error"));
-        assertThat(bouquet.getBouquetId()).isEqualTo(35);
-    }
-}
+//    @Test
+//    @Rollback(value = false)
+//    @Order(3)
+//    public void testUpdateBouquet() {
+//        Bouquet bouquet = bouquetRepository.findById(35)
+//                .orElseThrow(() -> new ExpressionException("error"));
+//        bouquet.setBouquetName("Alisa");
+//
+//        bouquetRepository.save(bouquet);
+//
+//        Bouquet updatedBouquet = bouquetRepository.findById(35)
+//                .orElseThrow(() -> new ExpressionException("error"));
+//
+//        assertThat(updatedBouquet.getBouquetName()).isEqualTo("Alisa");
+//    }
+//
+//    @Test
+//    @Rollback(value = false)
+//    @Order(4)
+//    public void testFindBouquetById() {
+//        Bouquet bouquet = bouquetRepository.findById(35)
+//                .orElseThrow(() -> new ExpressionException("error"));
+//        assertThat(bouquet.getBouquetId()).isEqualTo(35);
+//    }
+//}

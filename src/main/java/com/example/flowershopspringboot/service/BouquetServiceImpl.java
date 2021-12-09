@@ -11,14 +11,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.expression.ExpressionException;
 import org.springframework.stereotype.Service;
-
-
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.http.ResponseEntity.ok;
-
 
 @Service
 public class BouquetServiceImpl implements BouquetService {
@@ -33,7 +27,7 @@ public class BouquetServiceImpl implements BouquetService {
 
     public Page<Bouquet> getAllBouquets(
             BouquetPage bouquetPage,
-                                     BouquetSearchCriteria bouquetSearchCriteria){
+            BouquetSearchCriteria bouquetSearchCriteria) {
         return bouquetCriteriaRepository.findAllWithFilters(bouquetPage, bouquetSearchCriteria);
     }
 
@@ -42,7 +36,7 @@ public class BouquetServiceImpl implements BouquetService {
         bouquetRepository.save(bouquet);
     }
 
-    public List<Bouquet> getAllBouquets( @PageableDefault(sort = {"bouquetName"}, direction = Sort.Direction.ASC) Pageable defaultPageable) {
+    public List<Bouquet> getAllBouquets(@PageableDefault(sort = {"bouquetName"}, direction = Sort.Direction.ASC) Pageable defaultPageable) {
         Page<Bouquet> pagedResult = bouquetRepository.findAll(defaultPageable);
         if (pagedResult.hasContent()) {
             return pagedResult.getContent();
