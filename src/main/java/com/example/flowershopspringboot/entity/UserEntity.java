@@ -23,5 +23,4 @@ public class UserEntity extends RepresentationModel<UserEntity> {
     @ManyToOne
     @JoinColumn(name = "role_id")
     private RoleEntity roleEntity;
-
 }

@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 
 public interface BouquetService {
 
-
     void create(Bouquet bouquet);
 
     Bouquet updateBouquet(Integer id, Bouquet bouquet);

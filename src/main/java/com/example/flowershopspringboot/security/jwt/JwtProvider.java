@@ -1,12 +1,10 @@
 package com.example.flowershopspringboot.security.jwt;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;

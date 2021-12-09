@@ -1,6 +1,4 @@
 package com.example.flowershopspringboot.service;
-
-import com.example.flowershopspringboot.dto.BouquetDto;
 import com.example.flowershopspringboot.entity.bouquet.Bouquet;
 import com.example.flowershopspringboot.repository.BouquetRepository;
 import org.junit.jupiter.api.Test;
@@ -10,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.verify;
 
@@ -35,18 +32,5 @@ class BouquetServiceImplTest {
 
         Bouquet captureBouquet = bouquetArgumentCaptor.getValue();
         assertThat(captureBouquet).isEqualTo(bouquet);
-    }
-
-    @Test
-    void updateBouquet() {
-    }
-
-    @Test
-    void delete() {
-
-    }
-
-    @Test
-    void findBouquetById() {
     }
 }

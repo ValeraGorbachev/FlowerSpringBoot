@@ -15,9 +15,5 @@ public class BouquetDto {
     @Max(value = 100000, message = "Price should not be greater than 100000")
     private Integer bouquetPrice;
 
-
-    public BouquetDto(String bouquetName, Integer bouquetPrice) {
-        this.bouquetName = bouquetName;
-        this.bouquetPrice = bouquetPrice;
     }
-}
+

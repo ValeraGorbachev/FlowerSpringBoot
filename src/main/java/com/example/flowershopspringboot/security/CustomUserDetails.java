@@ -1,13 +1,10 @@
 package com.example.flowershopspringboot.security;
-
 import com.example.flowershopspringboot.entity.UserEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-
 import java.util.Collection;
 import java.util.Collections;
-
 
 public class CustomUserDetails implements UserDetails {
 
